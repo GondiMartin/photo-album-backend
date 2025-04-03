@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.authentication.AuthenticationProvider;
+import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -26,15 +27,15 @@ public class SecurityConfiguration {
         http.
                 csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(request ->
-                        request.requestMatchers("/api/v1/auth/**").permitAll()
-                                .requestMatchers("**").authenticated()
+                        request.requestMatchers("**").permitAll()
+                                .requestMatchers("/api/v1/auth/**").authenticated()
                 )
                 .sessionManagement(management -> management.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider)
                 .addFilterBefore(jwtAuthFilter, UsernamePasswordAuthenticationFilter.class);
 
-        http.csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request -> request.anyRequest().permitAll());
+//        http.csrf(AbstractHttpConfigurer::disable)
+//                .authorizeHttpRequests(request -> request.anyRequest().permitAll());
 
 //        http.authorizeHttpRequests(authorizeRequest -> authorizeRequest.anyRequest().authenticated())
 //                .formLogin(formLogin -> formLogin.loginPage("/login").permitAll())

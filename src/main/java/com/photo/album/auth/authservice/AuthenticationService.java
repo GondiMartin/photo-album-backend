@@ -22,7 +22,6 @@ public class AuthenticationService {
     public AuthenticationResponse register(RegisterRequest request){
         var user = new UserEntity();
         user.setEmail(request.getEmail());
-        user.setName(request.getName());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
 
         repository.save(user);

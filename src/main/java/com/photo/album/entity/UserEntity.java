@@ -32,8 +32,6 @@ public class UserEntity implements UserDetails {
 
     private String password;
 
-    private String name;
-
     @OneToMany(mappedBy = "user", cascade = CascadeType.ALL, fetch = FetchType.EAGER)
     private List<PhotoEntity> photos;
 

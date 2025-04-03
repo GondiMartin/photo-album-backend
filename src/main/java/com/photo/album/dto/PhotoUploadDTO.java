@@ -15,15 +15,5 @@ import java.util.Date;
 public class PhotoUploadDTO {
     private String name;
     private Date uploadDate;
-
-    public static PhotoUploadDTO toPhotoUploadDTO(PhotoEntity entity){
-        if(entity == null){
-            return null;
-        }
-        PhotoUploadDTO photoDTO = new PhotoUploadDTO();
-        photoDTO.setName(entity.getName());
-        photoDTO.setUploadDate(entity.getUploadDate());
-
-        return photoDTO;
-    }
+    private String image;
 }

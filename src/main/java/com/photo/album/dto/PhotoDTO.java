@@ -6,7 +6,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
+import java.util.Base64;
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -18,12 +20,19 @@ public class PhotoDTO {
     private String name;
     private Date uploadDate;
     private Long userId;
+    private String image;
 
     public static PhotoDTO toPhotoDTO(PhotoEntity entity){
         if(entity == null){
             return null;
         }
 
-        return new PhotoDTO(entity.getId(), entity.getName(), entity.getUploadDate(), entity.getUser().getId());
+
+        return new PhotoDTO(
+                entity.getId(),
+                entity.getName(),
+                entity.getUploadDate(),
+                entity.getUser().getId(),
+                Base64.getEncoder().encodeToString(entity.getImage()));
     }
 }

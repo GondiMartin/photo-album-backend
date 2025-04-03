@@ -17,7 +17,6 @@ import java.util.stream.Collectors;
 public class UserDTO {
     private Long id;
     private String email;
-    private String name;
     private List<PhotoDTO> photos;
 
     public static UserDTO toUserDTO(UserEntity user){
@@ -27,6 +26,6 @@ public class UserDTO {
 
         List<PhotoDTO> photosDTO = user.getPhotos().stream().map(PhotoDTO::toPhotoDTO).collect(Collectors.toList());
 
-        return new UserDTO(user.getId(), user.getEmail() , user.getName(), photosDTO);
+        return new UserDTO(user.getId(), user.getEmail(), photosDTO);
     }
 }
