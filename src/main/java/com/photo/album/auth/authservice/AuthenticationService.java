@@ -20,6 +20,10 @@ public class AuthenticationService {
     private final AuthenticationManager authenticationManager;
 
     public AuthenticationResponse register(RegisterRequest request){
+        if(repository.findByEmail(request.getEmail()).isPresent()){
+            throw new IllegalArgumentException("Email already in use");
+        }
+
         var user = new UserEntity();
         user.setEmail(request.getEmail());
         user.setPassword(passwordEncoder.encode(request.getPassword()));
