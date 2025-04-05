@@ -7,7 +7,6 @@ import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
-
 import java.security.Key;
 import java.util.Date;
 import java.util.HashMap;
@@ -17,7 +16,7 @@ import java.util.function.Function;
 @Service
 public class JwtService {
 
-    private static final String SECRET_KEY = System.getProperty("userSecret");
+    private static final String SECRET_KEY = System.getenv("USER_SECRET");
 
     public String extractUsername(String token) {
         return extractClaim(token, Claims::getSubject);
@@ -69,7 +68,7 @@ public class JwtService {
 
     private Key getSignInKey() {
         if(SECRET_KEY == null){
-            throw new RuntimeException("Secret key is null, must be set in VM options in run configs as -DuserSecret=<your_secret_key>");
+            throw new RuntimeException("Secret key is null, must be set in env options in run configs as USER_SECRET=<your_secret_key>");
         }
         byte[] keyBytes = Decoders.BASE64.decode(SECRET_KEY);
         return Keys.hmacShaKeyFor(keyBytes);

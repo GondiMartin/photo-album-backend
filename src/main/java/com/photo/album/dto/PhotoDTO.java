@@ -1,38 +1,17 @@
 package com.photo.album.dto;
 
-import com.photo.album.entity.PhotoEntity;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-
-import java.util.Base64;
-import java.util.Date;
-import java.util.List;
 
 @Getter
-@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 public class PhotoDTO {
 
     private Long id;
     private String name;
-    private Date uploadDate;
+    private String uploadDate;
     private Long userId;
-    private String image;
-
-    public static PhotoDTO toPhotoDTO(PhotoEntity entity){
-        if(entity == null){
-            return null;
-        }
-
-
-        return new PhotoDTO(
-                entity.getId(),
-                entity.getName(),
-                entity.getUploadDate(),
-                entity.getUser().getId(),
-                Base64.getEncoder().encodeToString(entity.getImage()));
-    }
+    private byte[] image;
 }

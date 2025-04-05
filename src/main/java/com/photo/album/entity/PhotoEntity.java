@@ -1,7 +1,5 @@
 package com.photo.album.entity;
 
-import com.photo.album.dto.PhotoUploadDTO;
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
@@ -15,9 +13,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-
-import java.util.Base64;
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Entity
 @Getter
@@ -32,27 +28,13 @@ public class PhotoEntity {
 
     private String name;
 
-    private Date uploadDate;
+    private LocalDateTime uploadDate;
 
     @Lob
     @Column(length = 10000000)
     private byte[] image;
 
-    @ManyToOne(fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private UserEntity user;
-
-    public static PhotoEntity toPhotoEntity(PhotoUploadDTO photoDTO, UserEntity user){
-        if(photoDTO == null){
-            return null;
-        }
-
-        return new PhotoEntity(
-                null,
-                photoDTO.getName(),
-                photoDTO.getUploadDate(),
-                Base64.getDecoder().decode(photoDTO.getImage()),
-                user
-        );
-    }
 }

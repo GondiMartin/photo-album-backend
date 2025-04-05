@@ -13,9 +13,4 @@ public class AlbumApplication {
 		SpringApplication.run(AlbumApplication.class, args);
 	}
 
-	@RequestMapping("/")
-	public String home(){
-		return "Hello World!";
-	}
-
 }
